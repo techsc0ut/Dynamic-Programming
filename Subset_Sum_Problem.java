@@ -10,9 +10,9 @@ class Solution{
                 }else if(j==0){
                     dp[i][j]=true;
                 }else{
-                    if(dp[i-1][j]==true){
-                        dp[i][j]=true;
-                    }else{
+                    if(dp[i-1][j]==true){                  // Batting Nahi krega , to check kar pichle bande bna payenge pure runs .
+                         dp[i][j]=true; 
+                    }else{                                 // Batting krega to de check kr , remaining run bna payenge pichle bande .
                         int val=arr[i-1];
                         if(j>=val){
                             if(dp[i-1][j-val]==true){

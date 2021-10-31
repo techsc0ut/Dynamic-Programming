@@ -1,38 +1,33 @@
 class Solution{
-    static int maxGold(int n,int m,int M[][]){
-        if(n==1 && m==1){
-            return M[0][0];
-        }int res=-1;
-        if(m==1){
-            for(int j=0;j<n;j++){
-                res=Math.max(res,M[j][0]);
-            }return res;
+    static int maxGold(int R, int C, int M[][]){
+        if(R==1){
+            int max=0;
+            for(int i=0;i<C;i++){
+                max+=M[0][i];
+            }
+            return max;
         }
-        if(n==1){
-            res=0;
-            for(int j=0;j<m;j++){
-                res+=M[0][j];
-            }return res; 
-        }
-        int dp[][]=new int[n][m];
-        for(int j=m-1;j>=0;j--){
-            for(int i=0;i<n;i++){
-                if(j==m-1){
-                    dp[i][j]=M[i][j];
-                }else if(i==0){
-                    dp[i][j]=Math.max(dp[i][j+1],dp[i+1][j+1])+M[i][j];
-                }
-                else if(i==n-1){
-                    dp[i][j]=Math.max(dp[i-1][j+1],dp[i][j+1])+M[i][j];
+        int mat[][]=new int[R][C];
+        for(int col=C-1;col>=0;col--){
+            for(int row=0;row<R;row++){
+                if(col==C-1){
+                    mat[row][col]=M[row][col];
+                }else if(row==0){
+                    mat[row][col]=M[row][col]+Math.max(mat[row][col+1],mat[row+1][col+1]);
+                }else if(row==R-1){
+                    mat[row][col]=M[row][col]+Math.max(mat[row][col+1],mat[row-1][col+1]);
                 }else{
-                    dp[i][j]=Math.max(dp[i-1][j+1],Math.max(dp[i+1][j+1],dp[i][j+1]))+M[i][j];
+                    mat[row][col]=M[row][col]+Math.max(mat[row][col+1],
+                    Math.max(mat[row-1][col+1],mat[row+1][col+1]));
                 }
             }
         }
-        res=dp[0][0];
-        for(int i=0;i<n;i++){
-            res=Math.max(res,dp[i][0]);
+        int max=mat[0][0];
+        for(int i=0;i<R;i++){
+            if(max<mat[i][0]){
+                max=mat[i][0];
+            }
         }
-        return res;
+        return max;
     }
 }

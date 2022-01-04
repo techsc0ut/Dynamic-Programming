@@ -1,3 +1,4 @@
+// Time : O(n) | Space : O(n)
 class Solution {
     public int rob(int[] nums) {
         if(nums.length==1){

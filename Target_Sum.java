@@ -25,6 +25,13 @@ class Solution {
         int dp[][]=new int[N+1][sum+1];
         dp[0][0]=1;
         int zeroCount=0;
+	/*
+		If we have "0", then, it can have +0 and -0 and still will not effect the sum of a set. For example: Target value is = 2
+		1) {0,2} = {+0,2}, {-0,2}.  Ans: 2
+		But if we increase number of 0s,
+		2) {0,0,2} = {+0,+0,2}, {+0,-0,2}, {-0,+0,2},{-0,-0,2} . Ans: 4
+		So, if you observe, your answer increase by (2^number of 0s) i.e. pow(2,number of zeros).
+	*/
         for(int i=1; i<=N; i++) {
 			if(nums[i-1]==0) zeroCount++;
 			dp[i][0] = (int)(Math.pow(2, zeroCount));

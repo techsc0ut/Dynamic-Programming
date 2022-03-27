@@ -11,6 +11,28 @@ class Solution {
                     dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
                 }
             }
-        }return dp[n][m];
+        }
+        /*ADD HERE FOR PRINTING LCS*/
+        return dp[n][m];
     }
 }
+
+
+
+/* CODE TO BE ADDED INORDER TO PRINT LCS*/
+        String res="";
+        int i=dp.length-1, j=dp[0].length-1;
+        while(i>0 && j>0){
+            if(s1.charAt(i-1)==s2.charAt(j-1)){
+                res=s1.charAt(i-1)+res;
+                i--;j--;
+            }else{
+                if(dp[i-1][j]>dp[i][j-1]){
+                    i--;
+                }else{
+                    j--;
+                }
+            }
+        }
+        System.out.println(res);
+

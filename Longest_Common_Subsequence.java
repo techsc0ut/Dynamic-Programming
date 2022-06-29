@@ -1,3 +1,29 @@
+/* RECURSIVE + MEMOIZATION */
+class Solution {
+    int dp[][];
+    public int longestCommonSubsequence(String s1, String s2) {
+        dp=new int[s1.length()+1][s2.length()+1];
+        for(int v[]:dp){
+            Arrays.fill(v,-1);
+        }
+        return func(s1,s2,s1.length(),s2.length());
+    }
+    public int func(String s1, String s2, int i, int j){
+        if(i==0 || j==0){
+            return dp[i][j]=0;
+        }else if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        else if(s1.charAt(i-1)==s2.charAt(j-1)){
+            return dp[i][j]=1+func(s1,s2,i-1,j-1);
+        }else{
+            return dp[i][j]=Math.max(func(s1,s2,i-1,j),func(s1,s2,i,j-1));
+        }
+    }
+}
+
+
+/* DP TABULATION */
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
         int n=text1.length();
@@ -16,7 +42,6 @@ class Solution {
         return dp[n][m];
     }
 }
-
 
 
 /* CODE TO BE ADDED INORDER TO PRINT LCS*/

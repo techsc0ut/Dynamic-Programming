@@ -4,26 +4,19 @@
 class Solution {
     public int maxProfit(int k, int[] prices) {
         int n=prices.length;
-        if(n<=1){
+        if(n==0 || n==1){
             return 0;
         }
-        int dp[][]=new int[k+1][n];
-        for(int i=0;i<=k;i++){
-            for(int j=0;j<n;j++){
-                if(i==0 || j==0){
-                    dp[i][j]=0;
-                }else{
-                    int max=0;
-                    for(int c=0;c<j;c++){
-                        if(i-1>=0){
-                            max=Math.max(max,dp[i-1][c]+(prices[j]-prices[c]));    
-                        }
+        int dp[][]=new int [k+1][n];
+        for(int i=1;i<k+1;i++){
+            for(int j=1;j<n;j++){
+                int max=dp[i][j-1];
+                for(int a=0;a<j;a++){
+                    if(max<(dp[i-1][a]+prices[j]-prices[a])){
+                        max=(dp[i-1][a]+prices[j]-prices[a]);
                     }
-                    if(j-1>=0){
-                        max=Math.max(max,dp[i][j-1]);
-                    }
-                    dp[i][j]=max;    
                 }
+                dp[i][j]=max;
             }
         }return dp[k][n-1];
     }
